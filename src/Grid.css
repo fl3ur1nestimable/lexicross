@@ -11,3 +11,10 @@ input{
 .cell_black{
     visibility: hidden;
 }
+
+table{
+    border-collapse: collapse;
+    font-family: monospace;
+    font-size: 25px;
+    text-align: center;
+}

@@ -20,8 +20,7 @@ class AppClass extends React.Component{
             layout: layout,
             table: layout.table,
         };
-        console.log("constructor");
-        console.log("user input",this.state.userInput);
+        console.log(layout.result)
 
     }
 
@@ -52,17 +51,19 @@ class AppClass extends React.Component{
               </div>
               <div className="Clues">
                 <h4>Clues</h4>
-                <h5>Across</h5>
+                <h5>Across(A)</h5>
                 { input.map((clue, i) => (
                   <div key={i}>
-                    {this.state.layout.result[i].orientation === "across" ? <p>{this.state.layout.result[i].clue}.</p> : <p></p>}
+                    {this.state.layout.result[i].orientation === "across" ? 
+                    <p><strong>({this.state.layout.result[i].startx},{this.state.layout.result[i].starty})</strong> {this.state.layout.result[i].clue}.</p> : <p></p>}
                     
                 </div>
                 ))}
-                <h5>Down</h5>
+                <h5>Down(D)</h5>
                 { input.map((clue, i) => (
                   <div key={i}>
-                    {this.state.layout.result[i].orientation === "down" ? <p>{this.state.layout.result[i].clue}.</p> : <p></p>}
+                    {this.state.layout.result[i].orientation === "down" ?
+                    <p><strong>({this.state.layout.result[i].startx},{this.state.layout.result[i].starty})</strong> {this.state.layout.result[i].clue}.</p> : <p></p>}
                     </div>
                 ))}
       

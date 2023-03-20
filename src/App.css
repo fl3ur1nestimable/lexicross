@@ -5,13 +5,7 @@ table{
     text-align: center;
 }
 
-.Grid{
-    display: inline-block
-}
-
 .Clues{
-    display: inline-block;
-    vertical-align: top;
     margin-left: 20px;
 }
 
@@ -19,6 +13,22 @@ table{
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     margin: 0 auto;
-    width: 80%;
+    width: 100%;
+}
+
+.all{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+button{
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    margin: 10px;
 }

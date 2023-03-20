@@ -1,101 +1,79 @@
-import React, { useState } from 'react';
+import React from 'react';
 import input from './input.json';
 import './App.css';
-import Cell from './Cell';
+import Grid from './Grid';
 
-function grid(table, userInput, setUserInput){
-  var grid = [];
-  for(var i = 0; i < table.length; i++){
-    grid.push([]);
-    for(var j = 0; j < table[i].length; j++){
-      if(table[i][j] === "-"){
-        grid[i].push(<Cell 
-                      isBlack="1" 
-                      value={userInput[i][j]}
-                      onChange={(e) => {
-                        var newInput = [...userInput];
-                        console.log("newInput before update: ", newInput);
-                        console.log("i: ", i);
-                        console.log("j: ", j);
-                        newInput[i][j] = e.target.value;
-                        setUserInput(newInput);
-                      }}/>);
-      }else{
-        grid[i].push(<Cell 
-                      isBlack="0" 
-                      value={userInput[i][j]}
-                      onChange={(e) => {
-                        var newInput = [...userInput];
-                        console.log("newInput before update: ", newInput);
-                        console.log("i: ", i);
-                        console.log("j: ", j);
-                        newInput[i][j] = e.target.value;
-                        setUserInput(newInput);
-                      }}/>);
-      }
+class AppClass extends React.Component{
+    constructor(props){
+        var clg = require("crossword-layout-generator");
+        var layout = clg.generateLayout(input);
+        var userI = [];
+        for(var i = 0; i < layout.table.length; i++){
+            userI.push([]);
+            for(var j = 0; j < layout.table[i].length; j++){
+                userI[i].push("");
+            }
+        }
+        super(props);
+        this.state = {
+            userInput: userI,
+            layout: layout,
+            table: layout.table,
+        };
+        console.log("constructor");
+        console.log("user input",this.state.userInput);
+
     }
-  }
 
-  
 
-  return(
-    <>
-      <table>
-        <tbody>
-          {grid.map((row, i) => (
-            <tr key={i}>
-              {row.map((cell, j) => (
-                <td key={j}>{cell}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
+    updateGrid = () => {
+        console.log("updateGrid");
+        var userI = [];
+        for(var i = 0; i < this.state.table.length; i++){
+            userI.push([]);
+            for(var j = 0; j < this.state.table[i].length; j++){
+                userI[i].push("");
+            }
+        }
+        this.setState({userInput: userI});
+        
+    }
 
-  )
+    checkAnswer = () => {
+        console.log("Checking answer");
+    }
 
-}
-
-function App() {
-  var clg = require("crossword-layout-generator");
-  var layout = clg.generateLayout(input);
-  var table = layout.table;
-
-  const checkAnswer = () => {
-    console.log("Checking answer");
-  };
-
-  const [userInput, setUserInput] = useState(Array(table.length).fill("").map(() => Array(table[0].length).fill("")));
-  console.log("userInput: ", userInput);
-  console.log("layout: ", layout.result);
-  return(
-    <div className="App">
-      <div className="Grid">
-        {grid(table, userInput, setUserInput)}
-      </div>
-      <div className="Clues">
-        <h4>Clues</h4>
-        <h5>Across</h5>
-        { input.map((clue, i) => (
-          <div key={i}>
-            {layout.result[i].orientation === "across" ? <p>{layout.result[i].clue}.</p> : <p></p>}
-            
-        </div>
-        ))}
-        <h5>Down</h5>
-        { input.map((clue, i) => (
-          <div key={i}>
-            {layout.result[i].orientation === "down" ? <p>{layout.result[i].clue}.</p> : <p></p>}
+    render(){
+        return(
+            <div className="all">
+            <div className="App">
+              <div className="Grid">
+                <Grid userInput={this.state.userInput} table={this.state.table} updateGrid={this.updateGrid}/>
+              </div>
+              <div className="Clues">
+                <h4>Clues</h4>
+                <h5>Across</h5>
+                { input.map((clue, i) => (
+                  <div key={i}>
+                    {this.state.layout.result[i].orientation === "across" ? <p>{this.state.layout.result[i].clue}.</p> : <p></p>}
+                    
+                </div>
+                ))}
+                <h5>Down</h5>
+                { input.map((clue, i) => (
+                  <div key={i}>
+                    {this.state.layout.result[i].orientation === "down" ? <p>{this.state.layout.result[i].clue}.</p> : <p></p>}
+                    </div>
+                ))}
+      
+              </div>
             </div>
-        ))}
-
-      </div>
-      <div className="Buttons">
-        <button onClick={checkAnswer}>Check!</button>
-      </div>
-    </div>
-  )
+            <div className="Buttons">
+              <button onClick={this.checkAnswer}>Check!</button>
+            </div>
+          </div>
+        )
+    }
 }
 
-export default App;
+export default AppClass;

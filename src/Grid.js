@@ -4,7 +4,6 @@ import "./Grid.css";
 
 class Grid extends React.Component{
     componentDidMount(){
-        console.log("componentDidMount");
         this.props.updateGrid();
         
     }
@@ -14,7 +13,6 @@ class Grid extends React.Component{
         const newUserInput = [...this.props.userInput];
         newUserInput[i][j] = value.toUpperCase();
         this.setState({ userInput: newUserInput });
-        console.log(this.props.userInput)
     }
 
     render = () => {

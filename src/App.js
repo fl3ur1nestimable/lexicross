@@ -8,10 +8,13 @@ class AppClass extends React.Component{
         var clg = require("crossword-layout-generator");
         var layout = clg.generateLayout(input);
         var userI = [];
+        var cellStates = [];
         for(var i = 0; i < layout.table.length; i++){
             userI.push([]);
+            cellStates.push([]);
             for(var j = 0; j < layout.table[i].length; j++){
                 userI[i].push("");
+                cellStates[i].push("");
             }
         }
         super(props);
@@ -20,13 +23,11 @@ class AppClass extends React.Component{
             layout: layout,
             table: layout.table,
         };
-        console.log(layout.result)
 
     }
 
 
     updateGrid = () => {
-        console.log("updateGrid");
         var userI = [];
         for(var i = 0; i < this.state.table.length; i++){
             userI.push([]);
@@ -39,7 +40,30 @@ class AppClass extends React.Component{
     }
 
     checkAnswer = () => {
-        console.log("Checking answer");
+        var userI = this.state.userInput;
+        var result = this.state.layout.result;
+        for(var i = 0; i < result.length; i++){
+            var word = "";
+            var x = result[i].startx-1;
+            var y = result[i].starty-1;
+            if(result[i].orientation === "across"){
+                for(var j = 0; j < result[i].answer.length; j++){
+                    word += userI[y][x+j];
+                }
+            }else{
+                for(var j = 0; j < result[i].answer.length; j++){
+                    word += userI[y+j][x];
+                }
+            }
+            word=word.toLowerCase();
+            if(word !== result[i].answer){
+                console.log("wrong for " + result[i].answer);
+            }
+            else{
+                console.log("correct for " + result[i].answer);
+            }
+        }
+
     }
 
     render(){

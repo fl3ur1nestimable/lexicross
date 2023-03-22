@@ -44,6 +44,29 @@ class AppClass extends React.Component{
         
     }
 
+    makethemes = () => {
+        console.log(theme);
+        for(let i = 0; i < theme.length; i++){
+            fetch("https://api.dictionaryapi.dev/api/v2/entries/en/"+theme[i])
+            .then(response => response.json())
+            .then(data => {
+                var word = data[0].word;
+                var def = data[0].meanings[0].definitions[0].definition;
+                var wordData = {
+                    word: word,
+                    definition: def
+                }
+                //save in json
+                var fs = require('fs');
+                fs.writeFile('resultthem.json', JSON.stringify(wordData), function (err) {
+                    if (err) return console.log(err);
+                  });
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+    }
+
     checkAnswer = () => {
         var userI = this.state.userInput;
         var result = this.state.layout.result;
@@ -98,6 +121,7 @@ class AppClass extends React.Component{
                 }
             }
         }
+        this.makethemes();
     }
 
     render(){

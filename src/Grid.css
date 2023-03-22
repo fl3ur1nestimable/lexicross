@@ -8,8 +8,17 @@ input{
     font-weight: bold;
 }
 
-.cell_black{
+.cell_black_{
     visibility: hidden;
+}
+
+.cell_white_correct{
+    background-color: rgb(54, 240, 54);
+    user-select: none;
+}
+
+.cell_white_wrong{
+    background-color: rgb(237, 44, 44);
 }
 
 table{

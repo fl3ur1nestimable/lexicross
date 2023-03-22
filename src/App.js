@@ -7,6 +7,7 @@ class AppClass extends React.Component{
     constructor(props){
         var clg = require("crossword-layout-generator");
         var layout = clg.generateLayout(input);
+        console.clear();
         var userI = [];
         var cellStates = [];
         for(var i = 0; i < layout.table.length; i++){
@@ -22,6 +23,7 @@ class AppClass extends React.Component{
             userInput: userI,
             layout: layout,
             table: layout.table,
+            cellStates: cellStates
         };
 
     }
@@ -29,41 +31,73 @@ class AppClass extends React.Component{
 
     updateGrid = () => {
         var userI = [];
+        var cellStates = [];
         for(var i = 0; i < this.state.table.length; i++){
             userI.push([]);
+            cellStates.push([]);
             for(var j = 0; j < this.state.table[i].length; j++){
                 userI[i].push("");
+                cellStates[i].push("");
             }
         }
-        this.setState({userInput: userI});
+        this.setState({userInput: userI, cellStates: cellStates});
         
     }
 
     checkAnswer = () => {
         var userI = this.state.userInput;
         var result = this.state.layout.result;
-        for(var i = 0; i < result.length; i++){
+        var cellStates = this.state.cellStates;
+        var wordsFinal = [];
+        for(let i = 0; i < result.length; i++){
             var word = "";
             var x = result[i].startx-1;
             var y = result[i].starty-1;
             if(result[i].orientation === "across"){
-                for(var j = 0; j < result[i].answer.length; j++){
+                for(let j = 0; j < result[i].answer.length; j++){
                     word += userI[y][x+j];
                 }
             }else{
-                for(var j = 0; j < result[i].answer.length; j++){
+                for(let j = 0; j < result[i].answer.length; j++){
                     word += userI[y+j][x];
                 }
             }
+            
+            this.setState({cellStates: cellStates});
             word=word.toLowerCase();
+
             if(word !== result[i].answer){
-                console.log("wrong for " + result[i].answer);
+                wordsFinal.unshift([result[i],"wrong"]);
             }
             else{
-                console.log("correct for " + result[i].answer);
+                wordsFinal.push([result[i],"correct"]);
             }
         }
-
+        for(let i = 0; i < wordsFinal.length; i++){
+            let x = wordsFinal[i][0].startx-1;
+            let y = wordsFinal[i][0].starty-1;
+            if(wordsFinal[i][1] === "wrong"){
+                if(wordsFinal[i][0].orientation === "across"){
+                    for(let j = 0; j < wordsFinal[i][0].answer.length; j++){
+                        cellStates[y][x+j] = "wrong";
+                    }
+                }else{
+                    for(let j = 0; j < wordsFinal[i][0].answer.length; j++){
+                        cellStates[y+j][x] = "wrong";
+                    }
+                }
+            }else{
+                if(wordsFinal[i][0].orientation === "across"){
+                    for(let j = 0; j < wordsFinal[i][0].answer.length; j++){
+                        cellStates[y][x+j] = "correct";
+                    }
+                }else{
+                    for(let j = 0; j < wordsFinal[i][0].answer.length; j++){
+                        cellStates[y+j][x] = "correct";
+                    }
+                }
+            }
+        }
     }
 
     render(){
@@ -71,7 +105,7 @@ class AppClass extends React.Component{
             <div className="all">
             <div className="App">
               <div className="Grid">
-                <Grid userInput={this.state.userInput} table={this.state.table} updateGrid={this.updateGrid}/>
+                <Grid userInput={this.state.userInput} table={this.state.table} updateGrid={this.updateGrid} cellStates={this.state.cellStates}/>
               </div>
               <div className="Clues">
                 <h4>Clues</h4>

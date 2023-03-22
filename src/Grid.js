@@ -31,9 +31,17 @@ class Grid extends React.Component{
                 } else if (j === 0) {
                     grid[i].push(<th key={j}>{i}</th>);
                 } else if(this.props.table[i-1][j-1] === "-"){
-                    grid[i].push(<td key={j}><input type="text" maxLength={1} className="cell_black" value={this.props.userInput[i-1][j-1]} onChange={this.handleChange(i-1,j-1)}/></td>);
+                    grid[i].push(<td key={j}><input type="text" maxLength={1} className="cell_black_" value={this.props.userInput[i-1][j-1]} onChange={this.handleChange(i-1,j-1)}/></td>);
                 }else{
-                    grid[i].push(<td key={j}><input type="text" maxLength={1} className="cell_white" value={this.props.userInput[i-1][j-1]} onChange={this.handleChange(i-1,j-1)}/></td>);
+                    if(this.props.cellStates[i-1][j-1] === "correct"){
+                        grid[i].push(<td key={j}><input type="text" maxLength={1} className="cell_white_correct" value={this.props.userInput[i-1][j-1]} onChange={this.handleChange(i-1,j-1)} readOnly /></td>);
+                    }
+                    else if(this.props.cellStates[i-1][j-1] === "wrong"){
+                        grid[i].push(<td key={j}><input type="text" maxLength={1} className="cell_white_wrong" value={this.props.userInput[i-1][j-1]} onChange={this.handleChange(i-1,j-1)}/></td>);
+                    }
+                    else{
+                        grid[i].push(<td key={j}><input type="text" maxLength={1} className="cell_white_" value={this.props.userInput[i-1][j-1]} onChange={this.handleChange(i-1,j-1)}/></td>);
+                    }
                 }
             }
         }

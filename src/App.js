@@ -2,9 +2,14 @@ import React from 'react';
 import input from './input.json';
 import './App.css';
 import Grid from './Grid';
+import art from './themes/art.json';
+import celebration from './themes/celebration.json';
+import cinema from './themes/cinema.json';
 
 class AppClass extends React.Component{
     constructor(props){
+        super(props);
+        this.testTheme();
         var clg = require("crossword-layout-generator");
         var layout = clg.generateLayout(input);
         console.clear();
@@ -18,7 +23,6 @@ class AppClass extends React.Component{
                 cellStates[i].push("");
             }
         }
-        super(props);
         this.state = {
             userInput: userI,
             layout: layout,
@@ -28,6 +32,26 @@ class AppClass extends React.Component{
 
     }
 
+    testTheme = () => {
+        var themes = [art,celebration,cinema];
+        var theme = themes[Math.floor(Math.random()*themes.length)];
+        var maxLength = 8;
+        var nbWords = 8;
+        var data = [];
+        var indexes = [];
+        for(let i = 0; i < nbWords; i++){
+            var index = Math.floor(Math.random()*theme.length);
+            while((theme[index].word.length > maxLength || theme[index].word.includes("-")) || indexes.includes(index)){
+                index = Math.floor(Math.random()*theme.length);
+            }
+            indexes.push(index);
+            var clue = theme[index].definition;
+            var answer = theme[index].word;
+            data.push({clue: clue, answer: answer});
+        }
+        input = data;
+        console.log(input);
+    }
 
     updateGrid = () => {
         var userI = [];
@@ -42,29 +66,6 @@ class AppClass extends React.Component{
         }
         this.setState({userInput: userI, cellStates: cellStates});
         
-    }
-
-    makethemes = () => {
-        console.log(theme);
-        for(let i = 0; i < theme.length; i++){
-            fetch("https://api.dictionaryapi.dev/api/v2/entries/en/"+theme[i])
-            .then(response => response.json())
-            .then(data => {
-                var word = data[0].word;
-                var def = data[0].meanings[0].definitions[0].definition;
-                var wordData = {
-                    word: word,
-                    definition: def
-                }
-                //save in json
-                var fs = require('fs');
-                fs.writeFile('resultthem.json', JSON.stringify(wordData), function (err) {
-                    if (err) return console.log(err);
-                  });
-            }).catch(err => {
-                console.log(err);
-            });
-        }
     }
 
     checkAnswer = () => {
@@ -121,7 +122,6 @@ class AppClass extends React.Component{
                 }
             }
         }
-        this.makethemes();
     }
 
     render(){
@@ -137,7 +137,7 @@ class AppClass extends React.Component{
                 { input.map((clue, i) => (
                   <div key={i}>
                     {this.state.layout.result[i].orientation === "across" ? 
-                    <p><strong>({this.state.layout.result[i].startx},{this.state.layout.result[i].starty})</strong> {this.state.layout.result[i].clue}.</p> : <p></p>}
+                    <p><strong>({this.state.layout.result[i].startx},{this.state.layout.result[i].starty})</strong> {this.state.layout.result[i].clue}</p> : <p></p>}
                     
                 </div>
                 ))}
@@ -145,7 +145,7 @@ class AppClass extends React.Component{
                 { input.map((clue, i) => (
                   <div key={i}>
                     {this.state.layout.result[i].orientation === "down" ?
-                    <p><strong>({this.state.layout.result[i].startx},{this.state.layout.result[i].starty})</strong> {this.state.layout.result[i].clue}.</p> : <p></p>}
+                    <p><strong>({this.state.layout.result[i].startx},{this.state.layout.result[i].starty})</strong> {this.state.layout.result[i].clue}</p> : <p></p>}
                     </div>
                 ))}
       

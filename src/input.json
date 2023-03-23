@@ -1,1 +1,66 @@
-[{"clue":"that which is established as a rule or model by authority, custom, or general consent","answer":"standard"},{"clue":"a machine that computes","answer":"computer"},{"clue":"the collective designation of items for a particular purpose","answer":"equipment"},{"clue":"an opening or entrance to an inclosed place","answer":"port"},{"clue":"a point where two things can connect and interact","answer":"interface"}]
+[
+  {
+    "clue": "A thin layer of some substance; a pellicle; a membranous covering, causing opacity.",
+    "answer": "film",
+    "startx": 4,
+    "starty": 5,
+    "orientation": "down",
+    "position": 1
+  },
+  {
+    "clue": "A play, dance, or other entertainment.",
+    "answer": "shows",
+    "startx": 4,
+    "starty": 2,
+    "orientation": "across",
+    "position": 2
+  },
+  {
+    "clue": "A group of people within hearing; specifically, a large gathering of people listening to or watching a performance, speech, etc.",
+    "answer": "audience",
+    "startx": 1,
+    "starty": 6,
+    "orientation": "across",
+    "position": 3
+  },
+  {
+    "clue": "An artist’s or photographer’s workshop or the room in which an artist works.",
+    "answer": "studio",
+    "startx": 2,
+    "starty": 4,
+    "orientation": "down",
+    "position": 4
+  },
+  {
+    "clue": "Someone who lives in modern times.",
+    "answer": "modern",
+    "startx": 6,
+    "starty": 1,
+    "orientation": "down",
+    "position": 5
+  },
+  {
+    "clue": "A snack food made from corn/maize kernels popped by dry heating.",
+    "answer": "popcorn",
+    "startx": 2,
+    "starty": 11,
+    "orientation": "across",
+    "position": 6
+  },
+  {
+    "clue": "Agreement in a design or plan; union formed by mutual communication of opinions and views; accordance in a scheme; harmony; simultaneous action.",
+    "answer": "concert",
+    "startx": 7,
+    "starty": 6,
+    "orientation": "down",
+    "position": 7
+  },
+  {
+    "clue": "The arts, customs, lifestyles, background, and habits that characterize a particular society or nation.",
+    "answer": "culture",
+    "startx": 7,
+    "starty": 9,
+    "orientation": "across",
+    "position": 8
+  }
+]

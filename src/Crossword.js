@@ -2,9 +2,7 @@ import React from 'react';
 import input from './input.json';
 import './App.css';
 import Grid from './Grid';
-import art from './themes/art.json';
-import celebration from './themes/celebration.json';
-import cinema from './themes/cinema.json';
+import themes from './themes/themes.json';
 
 class Crossword extends React.Component{
     constructor(props){
@@ -33,8 +31,8 @@ class Crossword extends React.Component{
     }
 
     testTheme = () => {
-        var themes = [art,celebration,cinema];
-        var theme = themes[Math.floor(Math.random()*themes.length)];
+        var choice = localStorage.getItem("selectedTheme");
+        var theme = themes[choice];
         var maxLength = 8;
         var nbWords = 8;
         var data = [];
@@ -153,6 +151,9 @@ class Crossword extends React.Component{
             </div>
             <div className="Buttons">
               <button onClick={this.checkAnswer}>Check!</button>
+              <button onClick={() => window.location.replace('/')}>
+                    Return to home page
+                </button>
             </div>
           </div>
         )

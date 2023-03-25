@@ -5,14 +5,14 @@ import HomePage from './HomePage';
 
 
 class AppClass extends React.Component {
+
+
   render() {
     return (
         <Router>
         <div>
-            
-
             <Routes>
-            <Route path="/mots-croises" element={<Crossword/>}/>
+            <Route path="/crossword/" element={<Crossword/>}/>
             <Route path="/" element={<HomePage/>}/>
             </Routes>
         </div>

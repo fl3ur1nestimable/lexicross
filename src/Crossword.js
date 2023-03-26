@@ -25,7 +25,8 @@ class Crossword extends React.Component{
             userInput: userI,
             layout: layout,
             table: layout.table,
-            cellStates: cellStates
+            cellStates: cellStates,
+            hintClicked: false
         };
 
     }
@@ -45,10 +46,29 @@ class Crossword extends React.Component{
             indexes.push(index);
             var clue = theme[index].definition;
             var answer = theme[index].word;
-            data.push({clue: clue, answer: answer});
+            var hint = answer[0];
+            for(let j = 1; j < answer.length; j++){
+                hint += "-";
+            }
+            data.push({clue: clue, answer: answer, hint: hint});
         }
         input = data;
         console.log(input);
+    }
+
+    giveHint = () => {
+        var again = input;
+        for (var i = 0; i < again.length; i++) {
+            var clue = again[i].clue;
+            var hint = again[i].hint;
+            clue = clue + " (" + hint + ")";
+            again[i].clue = clue;
+        }
+        input = again;
+        this.setState({layout: this.state.layout});
+        this.setState({
+            hintClicked: true
+          });
     }
 
     updateGrid = () => {
@@ -154,6 +174,7 @@ class Crossword extends React.Component{
               <button onClick={() => window.location.replace('/')}>
                     Return to home page
                 </button>
+                <button onClick={this.giveHint} disabled={this.state.hintClicked}>Hint</button>
             </div>
           </div>
         )

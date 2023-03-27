@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import themes from './themes/themes.json';
+import './HomePage.css'
 
 function HomePage() {
   //const themes = ['art', 'celebration', 'cinema', 'city', 'family', 'fauna', 'finance', 'food', 'health', 'history', 'house', 'job', 'music', 'schooledu', 'science', 'socialmedia', 'sports', 'transports', 'travel'];
@@ -15,7 +16,7 @@ function HomePage() {
     <div>
       <h1>Crosswords</h1>
       <h2>Select a theme :</h2>
-      <ul>
+      <ul class="button-list">
         {th.map((theme) => (
           <li key={theme}>
             <button onClick={() => selectTheme(theme)}>

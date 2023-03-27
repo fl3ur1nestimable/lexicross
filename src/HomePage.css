@@ -1,0 +1,19 @@
+.button-list {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.button-list li {
+  width: 33.33%;
+  box-sizing: border-box;
+  float: left;
+  text-align: center;
+}
+
+.button-list button {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}

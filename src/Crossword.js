@@ -171,7 +171,7 @@ class Crossword extends React.Component{
             </div>
             <div className="Buttons">
               <button onClick={this.checkAnswer}>Check!</button>
-              <button onClick={() => window.location.replace('/')}>
+              <button className='returnbtn' onClick={() => window.location.replace('/')}>
                     Return to home page
                 </button>
                 <button onClick={this.giveHint} disabled={this.state.hintClicked}>Hint</button>

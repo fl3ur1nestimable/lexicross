@@ -13,28 +13,19 @@ function HomePage() {
   }
 
   return (
-    <div>
-      <h1>Crosswords</h1>
-      <h2>Select a theme :</h2>
-      <ul class="button-list">
-        {th.map((theme) => (
-          <li key={theme}>
-            <button onClick={() => selectTheme(theme)}>
-              {theme} {selectedTheme === theme ? '✅' : ''}
-            </button>
-          </li>
-        ))}
-      </ul>
+    <div className='home'>
+      <h1 className='title'>LexiCross</h1>
+      <h2 className='subtitle'>Select a theme :</h2>
+      <div className='themes'>
+          {th.map((theme) => (
+            <button className='themebtn' key={theme} onClick={() => selectTheme(theme)}>{theme} {selectedTheme === theme ? '✅' : ''}</button> 
+          ))}
+      </div>
       {selectedTheme && (
-        <><button onClick={() => window.location.replace('/crossword')}>
-          Start to play
-        </button><button onClick={() => window.location.replace('/learning')}>
-            Learn
-          </button></>
-            )
-          
-        }
-      
+        <div className='validate'>
+          <button onClick={() => window.location.replace('/crossword')}>Start to play</button>
+          <button onClick={() => window.location.replace('/learning')}>Learn</button>
+        </div>)}
     </div>
   );
 }

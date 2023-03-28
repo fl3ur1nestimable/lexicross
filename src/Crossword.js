@@ -140,6 +140,41 @@ class Crossword extends React.Component{
                 }
             }
         }
+        let allCorrect = true;
+        for (let i = 0; i < wordsFinal.length; i++) {
+            if (wordsFinal[i][1] !== "correct") {
+            allCorrect = false;
+            break;
+            }
+        }
+
+        if (allCorrect) {
+            const popup = window.open('', '', 'width=300,height=200');
+            const dialogBox = `
+            <div>
+                <p>Vous avez gagné !</p>
+                <button id="replay-btn">Rejouer</button>
+                <button id="menu-btn">Retourner au menu</button>
+            </div>
+            `;
+
+            const dialog = document.createElement('div');
+            dialog.innerHTML = dialogBox;
+
+            const replayBtn = dialog.querySelector('#replay-btn');
+            replayBtn.addEventListener('click', () => {
+                window.location.replace('/crossword')
+            });
+
+            const menuBtn = dialog.querySelector('#menu-btn');
+            menuBtn.addEventListener('click', () => {
+                window.location.replace('/')
+            });
+
+            popup.document.body.appendChild(dialog);
+
+        }
+        
     }
 
     render(){

@@ -10,7 +10,7 @@ class Crossword extends React.Component{
         this.testTheme();
         var clg = require("crossword-layout-generator");
         var layout = clg.generateLayout(input);
-        console.clear();
+        //console.clear();
         var userI = [];
         var cellStates = [];
         for(var i = 0; i < layout.table.length; i++){
@@ -149,7 +149,6 @@ class Crossword extends React.Component{
         }
 
         if (allCorrect) {
-            const popup = window.open('', '', 'width=300,height=200');
             const dialogBox = `
             <div>
                 <p>Vous avez gagné !</p>
@@ -171,7 +170,8 @@ class Crossword extends React.Component{
                 window.location.replace('/')
             });
 
-            popup.document.body.appendChild(dialog);
+            alert(dialog.innerHTML);
+
 
         }
         

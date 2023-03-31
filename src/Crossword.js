@@ -140,40 +140,21 @@ class Crossword extends React.Component{
                 }
             }
         }
+
         let allCorrect = true;
         for (let i = 0; i < wordsFinal.length; i++) {
             if (wordsFinal[i][1] !== "correct") {
-            allCorrect = false;
-            break;
+                allCorrect = false;
+                break;
             }
         }
 
         if (allCorrect) {
-            const dialogBox = `
-            <div>
-                <p>Vous avez gagné !</p>
-                <button id="replay-btn">Rejouer</button>
-                <button id="menu-btn">Retourner au menu</button>
-            </div>
-            `;
-
-            const dialog = document.createElement('div');
-            dialog.innerHTML = dialogBox;
-
-            const replayBtn = dialog.querySelector('#replay-btn');
-            replayBtn.addEventListener('click', () => {
-                window.location.replace('/crossword')
-            });
-
-            const menuBtn = dialog.querySelector('#menu-btn');
-            menuBtn.addEventListener('click', () => {
-                window.location.replace('/')
-            });
-
-            alert(dialog.innerHTML);
-
-
+            setTimeout(function() {
+                alert("Congratulations! You solved the crossword !\nYou can now go back to the home page and choose another crossword.");
+            }, 2000);
         }
+
         
     }
 
@@ -209,6 +190,7 @@ class Crossword extends React.Component{
               <button className='returnbtn' onClick={() => window.location.replace('/')}>
                     Return to home page
                 </button>
+                <button onClick={() => window.location.reload('/Crossword')}>New Game</button>
                 <button onClick={this.giveHint} disabled={this.state.hintClicked}>Hint</button>
             </div>
           </div>

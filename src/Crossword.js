@@ -190,7 +190,7 @@ class Crossword extends React.Component{
               <button className='returnbtn' onClick={() => window.location.replace('/')}>
                     Return to home page
                 </button>
-                <button onClick={() => window.location.reload('/Crossword')}>New Game</button>
+                <button onClick={() => window.location.reload('/Crossword')}>New</button>
                 <button onClick={this.giveHint} disabled={this.state.hintClicked}>Hint</button>
             </div>
           </div>

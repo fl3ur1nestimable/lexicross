@@ -9,15 +9,14 @@ function Learning(){
         <div className='learn'>
             <h1>Theme : {choice}</h1>
             <div className='dic'>
-                <ul>
+                <ul className='dic-list'>
                     {theme.map((word) => (
-                        <li key={word.word}>
-                            <h2>{word.word}</h2>
-                            <p>{word.definition}</p>
-                        </li>
+                    <li key={word.word}>
+                        <p><strong>{word.word}</strong> : {word.definition}</p>
+                    </li>
                     ))}
                 </ul>
-            </div>
+                </div>
             <div className='return'>
                 <button className='btnreturn' onClick={() => window.location.replace('/')}>Return to home page</button>
             </div>

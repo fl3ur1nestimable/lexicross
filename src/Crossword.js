@@ -167,7 +167,7 @@ class Crossword extends React.Component{
       
         if (allCorrect) {
           setTimeout(function() {
-            alert("Congratulations! You solved the crossword !\nYou can now go back to the home page and choose another crossword.");
+            alert("Congratulations! You solved the crossword !\nYou can now go back to the home page and choose another crossword or start a new one.");
           }, 2000);
         }
       }

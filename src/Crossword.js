@@ -34,8 +34,8 @@ class Crossword extends React.Component{
     testTheme = () => {
         var choice = localStorage.getItem("selectedTheme");
         var theme = themes[choice];
-        var maxLength = 8;
-        var nbWords = 8;
+        var maxLength = 9;
+        var nbWords = 9;
         var data = [];
         var indexes = [];
         for(let i = 0; i < nbWords; i++){
@@ -113,14 +113,14 @@ class Crossword extends React.Component{
               word += userI[y][x+j];
             }
           }else{
+            if(result[i].orientation === "down"){
             console.log(result[i].answer.length);
             console.log(result[i].answer);
             for(var j = 0; j < result[i].answer.length; j++){
-              console.log(y+j, x);
               word += userI[y+j][x];
             }
           }
-      
+        }
           this.setState({cellStates: cellStates});
           word=word.toLowerCase();
       
@@ -140,9 +140,11 @@ class Crossword extends React.Component{
                 cellStates[y][x+j] = "wrong";
               }
             }else{
+                if (wordsFinal[i][0].orientation === "down"){
               for(let j = 0; j < wordsFinal[i][0].answer.length; j++){
                 cellStates[y+j][x] = "wrong";
               }
+            }
             }
           }else{
             if(wordsFinal[i][0].orientation === "across"){
@@ -150,9 +152,11 @@ class Crossword extends React.Component{
                 cellStates[y][x+j] = "correct";
               }
             }else{
+                if (wordsFinal[i][0].orientation === "down"){
               for(let j = 0; j < wordsFinal[i][0].answer.length; j++){
                 cellStates[y+j][x] = "correct";
               }
+            }
             }
           }
         }

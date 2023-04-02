@@ -40,12 +40,18 @@ class Crossword extends React.Component{
         var indexes = [];
         for(let i = 0; i < nbWords; i++){
             var index = Math.floor(Math.random()*theme.length);
-            while((theme[index].word.length > maxLength || theme[index].word.includes("-")) || indexes.includes(index)){
+            while(theme[index].word.length > maxLength || indexes.includes(index)){
                 index = Math.floor(Math.random()*theme.length);
             }
             indexes.push(index);
             var clue = theme[index].definition;
             var answer = theme[index].word;
+            if (answer.includes("-")){
+                answer = answer.replace(/-/g, "");
+            }
+            if (answer.includes(" ")){
+                answer = answer.replace(/ /g, "");
+            }
             var hint = answer[0];
             for(let j = 1; j < answer.length; j++){
                 hint += "-";
@@ -91,72 +97,83 @@ class Crossword extends React.Component{
         var result = this.state.layout.result;
         var cellStates = this.state.cellStates;
         var wordsFinal = [];
+      
+        // check if the sizes of userI and cellStates are equal
+        if (userI.length !== cellStates.length || userI[0].length !== cellStates[0].length) {
+          console.log('Error: the sizes of userI and cellStates are different');
+          return;
+        }
+      
         for(let i = 0; i < result.length; i++){
-            var word = "";
-            var x = result[i].startx-1;
-            var y = result[i].starty-1;
-            if(result[i].orientation === "across"){
-                for(let j = 0; j < result[i].answer.length; j++){
-                    word += userI[y][x+j];
-                }
-            }else{
-                for(let j = 0; j < result[i].answer.length; j++){
-                    word += userI[y+j][x];
-                }
+          var word = "";
+          var x = result[i].startx-1;
+          var y = result[i].starty-1;
+          if(result[i].orientation === "across"){
+            for(let j = 0; j < result[i].answer.length; j++){
+              word += userI[y][x+j];
             }
-            
-            this.setState({cellStates: cellStates});
-            word=word.toLowerCase();
-
-            if(word !== result[i].answer){
-                wordsFinal.unshift([result[i],"wrong"]);
+          }else{
+            console.log(result[i].answer.length);
+            console.log(result[i].answer);
+            for(var j = 0; j < result[i].answer.length; j++){
+              console.log(y+j, x);
+              word += userI[y+j][x];
             }
-            else{
-                wordsFinal.push([result[i],"correct"]);
-            }
+          }
+      
+          this.setState({cellStates: cellStates});
+          word=word.toLowerCase();
+      
+          if(word !== result[i].answer){
+            wordsFinal.unshift([result[i],"wrong"]);
+          }
+          else{
+            wordsFinal.push([result[i],"correct"]);
+          }
         }
         for(let i = 0; i < wordsFinal.length; i++){
-            let x = wordsFinal[i][0].startx-1;
-            let y = wordsFinal[i][0].starty-1;
-            if(wordsFinal[i][1] === "wrong"){
-                if(wordsFinal[i][0].orientation === "across"){
-                    for(let j = 0; j < wordsFinal[i][0].answer.length; j++){
-                        cellStates[y][x+j] = "wrong";
-                    }
-                }else{
-                    for(let j = 0; j < wordsFinal[i][0].answer.length; j++){
-                        cellStates[y+j][x] = "wrong";
-                    }
-                }
+          let x = wordsFinal[i][0].startx-1;
+          let y = wordsFinal[i][0].starty-1;
+          if(wordsFinal[i][1] === "wrong"){
+            if(wordsFinal[i][0].orientation === "across"){
+              for(let j = 0; j < wordsFinal[i][0].answer.length; j++){
+                cellStates[y][x+j] = "wrong";
+              }
             }else{
-                if(wordsFinal[i][0].orientation === "across"){
-                    for(let j = 0; j < wordsFinal[i][0].answer.length; j++){
-                        cellStates[y][x+j] = "correct";
-                    }
-                }else{
-                    for(let j = 0; j < wordsFinal[i][0].answer.length; j++){
-                        cellStates[y+j][x] = "correct";
-                    }
-                }
+              for(let j = 0; j < wordsFinal[i][0].answer.length; j++){
+                cellStates[y+j][x] = "wrong";
+              }
             }
+          }else{
+            if(wordsFinal[i][0].orientation === "across"){
+              for(let j = 0; j < wordsFinal[i][0].answer.length; j++){
+                cellStates[y][x+j] = "correct";
+              }
+            }else{
+              for(let j = 0; j < wordsFinal[i][0].answer.length; j++){
+                cellStates[y+j][x] = "correct";
+              }
+            }
+          }
         }
-
+      
         let allCorrect = true;
         for (let i = 0; i < wordsFinal.length; i++) {
-            if (wordsFinal[i][1] !== "correct") {
-                allCorrect = false;
-                break;
-            }
+          if (wordsFinal[i][1] !== "correct") {
+            allCorrect = false;
+            break;
+          }
         }
-
+      
         if (allCorrect) {
-            setTimeout(function() {
-                alert("Congratulations! You solved the crossword !\nYou can now go back to the home page and choose another crossword.");
-            }, 2000);
+          setTimeout(function() {
+            alert("Congratulations! You solved the crossword !\nYou can now go back to the home page and choose another crossword.");
+          }, 2000);
         }
-
-        
-    }
+      }
+      
+    
+      
 
     render(){
         return(

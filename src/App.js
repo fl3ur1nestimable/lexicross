@@ -7,7 +7,6 @@ import Learning from './Learning';
 
 class AppClass extends React.Component {
 
-
   render() {
     return (
         <Router>

@@ -12,6 +12,13 @@ function HomePage() {
     localStorage.setItem('selectedTheme', theme);
   }
 
+  function getSelectedValue() {
+    const number = document.getElementById("numberOfWords").value;
+    const length = document.getElementById("maxLength").value;
+    localStorage.setItem('selectedNumber', number);
+    localStorage.setItem('selectedLength', length);
+  }
+
   return (
     <div className='home'>
       <h1 className='title'>LexiCross</h1>
@@ -21,9 +28,28 @@ function HomePage() {
             <button className='themebtn' key={theme} onClick={() => selectTheme(theme)}>{theme} {selectedTheme === theme ? '✅' : ''}</button> 
           ))}
       </div>
+      <h3 className='subtitle'>Select the number of words :</h3>
+        <select id="numberOfWords">
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+        </select>
+
+        <h3 className='subtitle'>Select the maximum length of words :</h3>
+        <select id="maxLength">
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        
       {selectedTheme && (
         <div className='validate'>
-          <button onClick={() => window.location.replace('/crossword')}>Start to play</button>
+          <button onClick={() => {getSelectedValue();window.location.replace('/crossword');}}>Start to play</button>
           <button onClick={() => window.location.replace('/learning')}>Learn</button>
         </div>)}
     </div>

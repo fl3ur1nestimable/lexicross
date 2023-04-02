@@ -34,8 +34,8 @@ class Crossword extends React.Component{
     testTheme = () => {
         var choice = localStorage.getItem("selectedTheme");
         var theme = themes[choice];
-        var maxLength = 9;
-        var nbWords = 9;
+        var maxLength = localStorage.getItem("selectedLength");
+        var nbWords = localStorage.getItem("selectedNumber");
         var data = [];
         var indexes = [];
         for(let i = 0; i < nbWords; i++){

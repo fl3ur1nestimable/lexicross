@@ -14,18 +14,27 @@ input{
     visibility: hidden;
 }
 
+.cell_white_{
+    border: 2px solid black;
+    border-radius: 2px;
+}
+
 .cell_white_correct{
+    border: 2px solid black;
+    border-radius: 2px;
     background-color: rgb(54, 240, 54);
     user-select: none;
 }
 
 .cell_white_wrong{
+    border: 2px solid black;
+    border-radius: 2px;
     background-color: rgb(237, 44, 44);
 }
 
 table{
     border-collapse: collapse;
     font-family: monospace;
-    font-size: 25px;
+    font-size: 20px;
     text-align: center;
 }

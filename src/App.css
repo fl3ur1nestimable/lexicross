@@ -28,8 +28,7 @@ body,html{
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    background:linear-gradient(#00a1ff,#00ff8f);
-    height: 100vh;
+    margin-top: 50px;
 }
 
 .Buttons{

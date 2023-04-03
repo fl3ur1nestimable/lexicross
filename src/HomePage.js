@@ -28,7 +28,7 @@ function HomePage() {
             <button className='themebtn' key={theme} onClick={() => selectTheme(theme)}>{theme} {selectedTheme === theme ? '✅' : ''}</button> 
           ))}
       </div>
-      <h3 className='subtitle'>Select the number of words :</h3>
+      <h3 className='subtitle'>Select the maximum number of words :</h3>
         <select id="numberOfWords">
           <option value="8">8</option>
           <option value="9">9</option>

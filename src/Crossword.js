@@ -10,7 +10,7 @@ class Crossword extends React.Component{
         this.testTheme();
         var clg = require("crossword-layout-generator");
         var layout = clg.generateLayout(input);
-        //console.clear();
+        console.clear();
         var userI = [];
         var cellStates = [];
         for(var i = 0; i < layout.table.length; i++){
@@ -59,7 +59,6 @@ class Crossword extends React.Component{
             data.push({clue: clue, answer: answer, hint: hint});
         }
         input = data;
-        console.log(input);
     }
 
     giveHint = () => {
@@ -105,30 +104,28 @@ class Crossword extends React.Component{
         }
       
         for(let i = 0; i < result.length; i++){
-          var word = "";
-          var x = result[i].startx-1;
-          var y = result[i].starty-1;
-          if(result[i].orientation === "across"){
-            for(let j = 0; j < result[i].answer.length; j++){
-              word += userI[y][x+j];
+            if(result[i].orientation !== "none"){
+            var word = "";
+            var x = result[i].startx-1;
+            var y = result[i].starty-1;
+            if(result[i].orientation === "across"){
+              for(let j = 0; j < result[i].answer.length; j++){
+                word += userI[y][x+j];
+              }
+            }else if(result[i].orientation === "down"){
+              for(var j = 0; j < result[i].answer.length; j++){
+                word += userI[y+j][x];
+              }
             }
-          }else{
-            if(result[i].orientation === "down"){
-            console.log(result[i].answer.length);
-            console.log(result[i].answer);
-            for(var j = 0; j < result[i].answer.length; j++){
-              word += userI[y+j][x];
+            this.setState({cellStates: cellStates});
+            word=word.toLowerCase();
+        
+            if(word !== result[i].answer){
+              wordsFinal.unshift([result[i],"wrong"]);
             }
-          }
-        }
-          this.setState({cellStates: cellStates});
-          word=word.toLowerCase();
-      
-          if(word !== result[i].answer){
-            wordsFinal.unshift([result[i],"wrong"]);
-          }
-          else{
-            wordsFinal.push([result[i],"correct"]);
+            else{
+              wordsFinal.push([result[i],"correct"]);
+            }
           }
         }
         for(let i = 0; i < wordsFinal.length; i++){
@@ -172,7 +169,7 @@ class Crossword extends React.Component{
         if (allCorrect) {
           setTimeout(function() {
             alert("Congratulations! You solved the crossword !\nYou can now go back to the home page and choose another crossword or start a new one.");
-          }, 2000);
+          }, 1000);
         }
       }
       
@@ -192,7 +189,7 @@ class Crossword extends React.Component{
                 { input.map((clue, i) => (
                   <div key={i}>
                     {this.state.layout.result[i].orientation === "across" ? 
-                    <p><strong>({this.state.layout.result[i].startx},{this.state.layout.result[i].starty})</strong> {this.state.layout.result[i].clue}</p> : <p></p>}
+                    <p><strong>({this.state.layout.result[i].starty},{this.state.layout.result[i].startx})</strong> {this.state.layout.result[i].clue}</p> : <p></p>}
                     
                 </div>
                 ))}
@@ -200,7 +197,7 @@ class Crossword extends React.Component{
                 { input.map((clue, i) => (
                   <div key={i}>
                     {this.state.layout.result[i].orientation === "down" ?
-                    <p><strong>({this.state.layout.result[i].startx},{this.state.layout.result[i].starty})</strong> {this.state.layout.result[i].clue}</p> : <p></p>}
+                    <p><strong>({this.state.layout.result[i].starty},{this.state.layout.result[i].startx})</strong> {this.state.layout.result[i].clue}</p> : <p></p>}
                     </div>
                 ))}
       

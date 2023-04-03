@@ -118,7 +118,6 @@
             {"word": "music", "definition": "A form of artistic expression that uses sound and rhythm to convey emotion and meaning, often played at celebrations."},
             {"word": "parade", "definition": "A procession of people or vehicles, often to celebrate a special occasion or event."},
             {"word": "party", "definition": "A social gathering of people for a celebration or other festive occasion."},
-            {"word": "piñata", "definition": "A brightly colored container filled with candy and toys, often hung up and broken open during celebrations."},
             {"word": "presents", "definition": "Another word for 'gifts', something given to someone as a present, especially on a special occasion."},
             {"word": "streamers", "definition": "Long, narrow strips of colored paper or plastic, often hung up as a decoration for celebrations."},
             {"word": "surprise", "definition": "An unexpected or astonishing event or situation, often used to create excitement or joy during celebrations."},
@@ -127,8 +126,7 @@
             {"word": "treats", "definition": "Delicious snacks or sweets, often served at celebrations."},
             {"word": "wedding", "definition": "A ceremony in which two people are united in marriage, often celebrated with a reception or party."}
     ],
-    "name": "Cinema",
-    "words": [
+    "cinema": [
       {
         "word": "actor",
         "definition": "a person who performs in plays, movies, or television shows"
@@ -2885,7 +2883,7 @@
             "definition": "A person or group of people constituting a particular side in a contract or legal action."
         }
     ],
-    "schooledu": [
+    "school": [
         {
             "word": "university",
             "definition": "Institution of higher education (typically accepting students from the age of about 17 or 18, depending on country, but in some exceptional cases able to take younger students) where subjects are studied and researched in depth and degrees are offered."
